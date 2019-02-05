@@ -1,5 +1,5 @@
 import React from 'react';
-import css from 'styles.css';
+import css from './styles.css';
 
 export default function MesMenuLayout(props) {
     const items = props.items;
