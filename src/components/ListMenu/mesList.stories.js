@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import ListMenu from '../components/ListMenu/index';
+import ListMenu from '.';
 
 storiesOf('ListMenu', module)
     .add('can create and can delete', ()=>(

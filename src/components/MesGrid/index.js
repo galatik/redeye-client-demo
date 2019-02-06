@@ -4,42 +4,38 @@ import { Grid } from '@progress/kendo-react-grid';
 
 
 class MesGrid extends React.Component{
+
     constructor(props){
         super(props);
 
-        const {
-            fetchData,
-            gridData,
-            initialDataState
-        } = props;
-
-        fetchData(initialDataState);
+        this.state = props.initialDataState;
 
         this.onDataStateChange = this.onDataStateChange.bind(this);
-
-        this.state = {
-            data: gridData,
-            dataState: initialDataState
-        };
     }
 
-    onDataStateChange(e){
+    onDataStateChange({ data }){
+        this.props.fetchData(data);
 
+        this.setState(data);
     }
 
-    render(props){
-
+    render(){
         const {
-            gridColumns,
-            fetchData,
-            gridData
-        } = props
+            isFetching,
+            gridData,
+            children,
+        } = this.props;
 
-        return (
-            <Grid data={gridData} {...props} onDataStateChange={onDataStateChange}>
-                {gridColumns}
-            </Grid>
-        );
+        return isFetching ?
+            (
+                <div>Loading</div>
+            )
+            :
+            (
+                <Grid data={gridData} {...this.state} onDataStateChange={this.onDataStateChange} {...this.props}>
+                    {children}
+                </Grid>
+            );
     }
 }
 
@@ -49,6 +45,15 @@ MesGrid.propTypes = {
         Total: PropTypes.number
     }),
     fetchData: PropTypes.func,
-    initialDataState: PropTypes.object,
-    gridColumns: PropTypes.arrayOf(PropTypes.element)
+    children: PropTypes.arrayOf(PropTypes.element),
+    initialDataState: PropTypes.object
 };
+
+MesGrid.defaultProps = {
+    sortable: true,
+    pageable: true,
+    filterable: true,
+    initialDataState: { take: 10, skip: 0 }
+};
+
+export default MesGrid;
