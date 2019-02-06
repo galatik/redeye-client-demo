@@ -46,7 +46,8 @@ MesGrid.propTypes = {
     }),
     fetchData: PropTypes.func,
     children: PropTypes.arrayOf(PropTypes.element),
-    initialDataState: PropTypes.object
+    initialDataState: PropTypes.object,
+    isFetching: PropTypes.bool
 };
 
 MesGrid.defaultProps = {

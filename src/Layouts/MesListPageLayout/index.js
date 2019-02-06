@@ -1,27 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Menu from '../../components/ListMenu';
+import MesGrid from '../../components/MesGrid';
 
-function MesListPageLayout({
-    gridColumns,
-    onGridRowClicked,
-    gridData,
-    canCreate,
-    canDelete,
-    onDelete,
-    onCreate,
-    onResetConfiguration
-                           }){
+function MesListPageLayout(props){
+
+    const {
+        canCreate,
+        canDelete,
+        onCreate,
+        onDelete,
+        onResetConfiguration,
+        children,
+        gridData,
+        fetchGridData,
+        isFetchingGridData,
+        initialGridDataState
+
+    } = props;
 
     return (
         <div>
             <div>
-                <Menu canCreate={canCreate} canDelete={canCreate}
+                <Menu canCreate={canCreate} canDelete={canDelete}
                       onCreate={onCreate} onDelete={onDelete}
                       onResetConfiguration={onResetConfiguration} />
             </div>
             <div>
-                <GridComponent data={gridData} onGridRowClicked={onGridRowClicked} />
+                <MesGrid initialDataState={initialGridDataState}
+                         isFetching={isFetchingGridData}
+                         gridData={gridData}
+                         fetchData={fetchGridData}
+                         {...props}
+                >
+                    {children}
+                </MesGrid>
             </div>
         </div>
     );
@@ -29,7 +42,6 @@ function MesListPageLayout({
 
 MesListPageLayout.propTypes = {
     gridColumns: PropTypes.arrayOf(PropTypes.element),
-    onGridRowClicked: PropTypes.func,
     gridData: PropTypes.arrayOf(PropTypes.object),
     onDelete: PropTypes.func,
     onCreate: PropTypes.func,
