@@ -41,13 +41,16 @@ function MesListPageLayout(props){
 }
 
 MesListPageLayout.propTypes = {
-    gridColumns: PropTypes.arrayOf(PropTypes.element),
-    gridData: PropTypes.arrayOf(PropTypes.object),
     onDelete: PropTypes.func,
     onCreate: PropTypes.func,
     canDelete: PropTypes.bool.default(true),
     canCreate: PropTypes.bool.default(true),
-    onResetConfiguration: PropTypes.func
+    onResetConfiguration: PropTypes.func,
+    children: PropTypes.arrayOf(PropTypes.element),
+    initialGridDataState: PropTypes.object,
+    fetchGridData: PropTypes.func,
+    isFetchingGridData: PropTypes.bool,
+    gridData: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default MesListPageLayout;
